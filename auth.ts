@@ -6,7 +6,7 @@ import type { User } from '@/app/lib/definitions'
 import bcrypt from 'bcrypt'
 import postgres from 'postgres'
 
-const sql = postgres(process.env.POSTGRES_URL!, {ssl: 'require'})
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
@@ -18,7 +18,7 @@ async function getUser(email: string): Promise<User | undefined> {
   }
 }
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { auth, handlers, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
@@ -33,7 +33,7 @@ export const { auth, signIn, signOut } = NextAuth({
           if (!user) return null
           const passwordsMatch = await bcrypt.compare(password, user.password)
 
-          if(passwordsMatch) return user
+          if (passwordsMatch) return user
         }
         console.log('Invalid credentials')
         return null
