@@ -2,6 +2,7 @@ import type { NextAuthConfig } from 'next-auth'
 
 export const authConfig = {
   trustHost: true,
+  secret: 'turtle',
   pages: {
     signIn: '/login',
   },
