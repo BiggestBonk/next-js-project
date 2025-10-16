@@ -1136,7 +1136,7 @@ packages:
       nodemailer:
         optional: true
 
-  next@16.0.0-canary.3:
+  next@15.5.5:
     resolution:
       {
         integrity: sha512-Aus55TORagFWpoYaOWBYCuVLBu7dwBIvncCAZ65wib/LO0NLm2TknVFLC5jetk0CW8jKbhteuvbvPdNrSzHSHA==,
