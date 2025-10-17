@@ -8,6 +8,11 @@ import postgres from 'postgres'
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
+    console.log('POSTGRES_URL in getUser:', process.env.POSTGRES_URL)
+    console.log(
+      'POSTGRES_URL starts with postgresql:',
+      process.env.POSTGRES_URL?.startsWith('postgresql')
+    )
     const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
     const user = await sql<User[]>`SELECT * FROM users WHERE email=${email}`
     return user[0]
