@@ -6,12 +6,9 @@ import type { User } from './app/lib/definitions'
 import bcrypt from 'bcrypt'
 import postgres from 'postgres'
 
-console.log('POSTGRES_URL:', process.env.POSTGRES_URL ? 'SET' : 'NOT SET')
-const sql = postgres(process.env.POSTGRES_URL || 'postgres://localhost', {
-  ssl: 'require',
-})
 async function getUser(email: string): Promise<User | undefined> {
   try {
+    const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
     const user = await sql<User[]>`SELECT * FROM users WHERE email=${email}`
     return user[0]
   } catch (error) {
