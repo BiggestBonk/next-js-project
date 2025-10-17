@@ -4,21 +4,15 @@ import Credentials from 'next-auth/providers/credentials'
 import z from 'zod'
 import type { User } from './app/lib/definitions'
 import bcrypt from 'bcrypt'
-import postgres from 'postgres'
+import { sql } from '@/app/lib/db'
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
-    console.log('POSTGRES_URL in getUser:', process.env.POSTGRES_URL)
-    console.log(
-      'POSTGRES_URL starts with postgresql:',
-      process.env.POSTGRES_URL?.startsWith('postgresql')
-    )
-    const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
     const user = await sql<User[]>`SELECT * FROM users WHERE email=${email}`
     return user[0]
   } catch (error) {
     console.error('Failed to fetch user:', error)
-    throw new Error('Failed to fetch user.')
+    throw new Error('Failed to fetch user')
   }
 }
 
